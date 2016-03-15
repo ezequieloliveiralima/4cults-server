@@ -2,7 +2,9 @@ express 	= require('express')
 app 		= express()
 cloudKit 	= require('./cloudkit.js')
 fetch 		= require('node-fetch')
-port 		= 8001
+port 		= 5000
+
+app.set('port', (process.env.PORT || port));
 
 types = [
 	'Curiosity'
@@ -49,6 +51,6 @@ app.get('/curiosities/:countryName', function(req, res) {
 	})
 })
 
-app.listen(port, function() {
+app.listen(app.get('port'), function() {
 	console.log('servidor rodando na porta: ' + port)
 })
