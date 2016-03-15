@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "ejs": "2.3.3",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "express": "^4.13.4",
+    "node-fetch": "^1.3.3"
   },
   "engines": {
     "node": "0.12.7"
@@ -20,8 +22,7 @@
   "keywords": [
     "node",
     "heroku",
-    "express",
-    "node-fetch"
+    "express"
   ],
   "license": "MIT"
 }
