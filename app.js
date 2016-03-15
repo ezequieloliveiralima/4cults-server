@@ -1,8 +1,8 @@
-express 	= require('express')
-app 		= express()
-cloudKit 	= require('./cloudkit.js')
-fetch 		= require('node-fetch')
-port 		= 5000
+var express 	= require('express')
+	, app 	= express()
+	, cloudKit = require('./cloudkit.js')
+	, fetch = require('node-fetch')
+	, port 	= 5000;
 
 app.set('port', (process.env.PORT || port));
 
