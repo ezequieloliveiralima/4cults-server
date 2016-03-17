@@ -31,6 +31,20 @@ app.get('/likes/:recordName', function(req, res) {
 	})
 })
 
+app.get('/points/:recordName', function(req, res) {
+	var query = [{fieldName: 'curiosity', comparator: 'EQUALS', fieldValue: {value: {recordName: req.params.recordName, type: 'REFERENCE'}}}]
+	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[1], filterBy: query }).then(function(response) {
+		var points = 0
+		for (var i = 0; i < response._results.length; i++) {
+			points += response._results[i].points
+		}
+		points /= response._results.length
+		res.json({ points: points })
+	}, function(error) {
+		res.json(error)
+	})
+})
+
 app.get('/curiosities/:countryName', function(req, res) {
 	var query = [{fieldName: 'countryName', comparator: 'EQUALS', fieldValue: {value: req.params.countryName, type: "STRING"}}]
 	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[0], filterBy: query }).then(function(response) {
