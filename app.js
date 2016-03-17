@@ -35,7 +35,7 @@ app.get('/points/:recordName', function(req, res) {
 	var query = [{fieldName: 'curiosity', comparator: 'EQUALS', fieldValue: {value: {recordName: req.params.recordName, type: 'REFERENCE'}}}]
 	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[1], filterBy: query }).then(function(response) {
 		if (response._results.length === 0) {
-			res.json({ points: 0, likes: 0 });
+			res.json({ points: 0, total: 0 });
 			return;
 		}
 		var points = 0
