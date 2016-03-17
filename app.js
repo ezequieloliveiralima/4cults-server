@@ -43,7 +43,7 @@ app.get('/points/:recordName', function(req, res) {
 			points += response._results[i].fields.points.value
 		}
 		points /= response._results.length
-		res.json({ points: points })
+		res.json({ points: points, total: response._results.length })
 	}, function(error) {
 		res.json(error)
 	})
