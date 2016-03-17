@@ -34,9 +34,13 @@ app.get('/likes/:recordName', function(req, res) {
 app.get('/points/:recordName', function(req, res) {
 	var query = [{fieldName: 'curiosity', comparator: 'EQUALS', fieldValue: {value: {recordName: req.params.recordName, type: 'REFERENCE'}}}]
 	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[1], filterBy: query }).then(function(response) {
+		if (response._results.length === 0) {
+			res.json({ points: 0 });
+			return;
+		}
 		var points = 0
 		for (var i = 0; i < response._results.length; i++) {
-			points += response._results[i].points
+			points += response._results[i].fields.points.value
 		}
 		points /= response._results.length
 		res.json({ points: points })
