@@ -56,6 +56,28 @@ app.get('/curiosities/:countryName', function(req, res) {
 		for(var i=0; i<response._results.length; i++) {
 			var result = {}
 			result.countryName 	= response._results[i].fields.countryName.value
+			result.cityName 	= response._results[i].fields.cityName.value
+			result.body 		= response._results[i].fields.body.value
+			result.title 		= response._results[i].fields.title.value
+			result.device 		= response._results[i].fields.device.value
+			result.createdAt 	= response._results[i].created.timestamp
+			result.recordName 	= response._results[i].recordName
+			results.push(result)
+		}
+		res.json(results)
+	}, function(error) {
+		res.json(error)
+	})
+})
+
+app.get('/curiosities/:cityName', function(req, res) {
+	var query = [{fieldName: 'cityName', comparator: 'EQUALS', fieldValue: {value: req.params.cityName, type: "STRING"}}]
+	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[0], filterBy: query }).then(function(response) {
+		var results = []
+		for(var i=0; i<response._results.length; i++) {
+			var result = {}
+			result.countryName 	= response._results[i].fields.countryName.value
+			result.cityName 	= response._results[i].fields.cityName.value
 			result.body 		= response._results[i].fields.body.value
 			result.title 		= response._results[i].fields.title.value
 			result.device 		= response._results[i].fields.device.value
