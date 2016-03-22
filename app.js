@@ -70,7 +70,7 @@ app.get('/curiosities/:countryName', function(req, res) {
 	})
 })
 
-app.get('/curiosities/:cityName', function(req, res) {
+app.get('/curiosities/city/:cityName', function(req, res) {
 	var query = [{fieldName: 'cityName', comparator: 'EQUALS', fieldValue: {value: req.params.cityName, type: "STRING"}}]
 	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[0], filterBy: query }).then(function(response) {
 		var results = []
