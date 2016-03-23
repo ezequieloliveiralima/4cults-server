@@ -2,7 +2,11 @@ var express 	= require('express')
 	, app 	= express()
 	, cloudKit = require('./cloudkit.js')
 	, fetch = require('node-fetch')
+	, bodyParser 	= require("body-parser")
 	, port 	= 5000;
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.set('port', (process.env.PORT || port));
 
@@ -70,8 +74,8 @@ app.get('/curiosities/:countryName', function(req, res) {
 	})
 })
 
-app.get('/curiosities/city/:cityName', function(req, res) {
-	var query = [{fieldName: 'cityName', comparator: 'EQUALS', fieldValue: {value: req.params.cityName, type: "STRING"}}]
+app.post('/curiosities', function(req, res) {
+	var query = [{fieldName: 'cityName', comparator: 'EQUALS', fieldValue: {value: req.body.city, type: "STRING"}}]
 	cloudKit.getAllContainers()[0].publicCloudDatabase.performQuery({ recordType: types[0], filterBy: query }).then(function(response) {
 		var results = []
 		for(var i=0; i<response._results.length; i++) {
